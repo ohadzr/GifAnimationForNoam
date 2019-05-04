@@ -1,26 +1,55 @@
 import time
 import cv2  # dependency
 
-from config import ESC_KEY, ALL_VIDEOS, current_video_file, next_video_file
+from config import ESC_KEY, ALL_VIDEOS, \
+    CLICK_LOCATIONS, HOVER_LOCATIONS, \
+    current_video_file, next_video_file, after_click
+
+
+def check_bounds(x, y, locations, frame_width, frame_height):
+    # check if valid
+    if (not (0 < x < frame_width)) or (not (0 < y < frame_height)):
+        return None
+
+    for name, values in locations.items():
+        # left-top x,y
+        x1, y1 = values[0]
+        # right-bottom x,y
+        x2, y2 = values[1]
+        # print("location: {}, {}\ntop-left: {}, {}\nright-bottom: {}, {}".format(x, y, x1, y1, x2, y2))
+        if (x1 < x < x2) and (y1 < y < y2):
+            return name
+
+    return None
+
 
 # mouse callback function
 def mouse_callback(event, x, y, flags, param):
-    global next_video_file
+    global next_video_file, after_click
+    frame_width = param[0]
+    frame_height = param[1]
 
     if event == cv2.EVENT_LBUTTONDOWN:
-        print('currently playing main, changing to second')
-        next_video_file = "surfer"
-        print((x, y))
+        result = check_bounds(x, y, CLICK_LOCATIONS, frame_width, frame_height)
+        if result:
+            print("Mouse locations: {}, {}".format(x, y))
+            print("Result: {}".format(result))
+            next_video_file = result
+            after_click = True
 
     if event == cv2.EVENT_MOUSEMOVE:
-        print(x,y)
+        result = check_bounds(x, y, HOVER_LOCATIONS, frame_width, frame_height)
+        if result and not after_click:
+            print("Mouse locations: {}, {}".format(x, y))
+            print("Result: {}".format(result))
+            next_video_file = result
 
 
 def play_video(video_files: dict, frames_per_second=25, quit_key=ESC_KEY, fullscreen=True):
     """main function"""
 
     # set as global for mouse callback function
-    global current_video_file, next_video_file
+    global current_video_file, next_video_file, after_click
 
     # load main video first
     cap = cv2.VideoCapture(video_files[current_video_file])
@@ -31,8 +60,12 @@ def play_video(video_files: dict, frames_per_second=25, quit_key=ESC_KEY, fullsc
     else:
         cv2.namedWindow("window")
 
-    cv2.setMouseCallback("window", mouse_callback, [video_files])
-    _,_, window_x, window_y = cv2.getWindowImageRect("window")
+    frame_width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
+    frame_height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
+
+    cv2.setMouseCallback("window", mouse_callback, [frame_width, frame_height])
+
+    _, _, window_x, window_y = cv2.getWindowImageRect("window")
     print(window_x, window_y)
     print(cv2.getWindowImageRect("window"))
 
@@ -47,6 +80,9 @@ def play_video(video_files: dict, frames_per_second=25, quit_key=ESC_KEY, fullsc
         else:
             print("END OF VIDEO")
             print("current:{} \nnext: {}".format(current_video_file, next_video_file))
+
+            after_click = False
+
             if current_video_file == next_video_file:  # play video in loop
                 cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
             else:  # play different video
