@@ -8,9 +8,9 @@ SAMPLE_VID_SURFER = r"samples/videos/Surfer.mp4"
 
 
 ALL_VIDEOS = {
-    'main': SAMPLE_VID_BUNNY_SHORT,
+    'main': SAMPLE_VID_SURFER,
     'earth': SAMPLE_VID_EARTH,
-    'surfer': SAMPLE_VID_SURFER
+    'surfer': SAMPLE_VID_BUNNY_SHORT
 }
 
 
