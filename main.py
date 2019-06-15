@@ -1,9 +1,9 @@
 import time
 import cv2  # dependency
 
-from config import ESC_KEY, ALL_VIDEOS, \
-    CLICK_LOCATIONS, HOVER_LOCATIONS, \
-    current_video_file, next_video_file, after_click
+from config import ESC_KEY, ALL_VIDEOS, VIDEO_TO_STATIC_IMAGE, \
+    CLICK_LOCATIONS, MOUSE_OVER_LOCATIONS, \
+    current_video_file, next_video_file, after_click, current_screen
 
 
 def check_bounds(x, y, locations, frame_width, frame_height):
@@ -24,13 +24,15 @@ def check_bounds(x, y, locations, frame_width, frame_height):
 
 
 # mouse callback function
+
 def mouse_callback(event, x, y, flags, param):
     global next_video_file, after_click
     frame_width = param[0]
     frame_height = param[1]
+    print("Mouse locations: {}, {}".format(x, y))
 
     if event == cv2.EVENT_LBUTTONDOWN:
-        result = check_bounds(x, y, CLICK_LOCATIONS, frame_width, frame_height)
+        result = check_bounds(x, y, CLICK_LOCATIONS[current_screen], frame_width, frame_height)
         if result:
             print("Mouse locations: {}, {}".format(x, y))
             print("Result: {}".format(result))
@@ -38,7 +40,7 @@ def mouse_callback(event, x, y, flags, param):
             after_click = True
 
     if event == cv2.EVENT_MOUSEMOVE:
-        result = check_bounds(x, y, HOVER_LOCATIONS, frame_width, frame_height)
+        result = check_bounds(x, y, MOUSE_OVER_LOCATIONS[current_screen], frame_width, frame_height)
         if result and not after_click:
             print("Mouse locations: {}, {}".format(x, y))
             print("Result: {}".format(result))
@@ -49,7 +51,7 @@ def play_video(video_files: dict, frames_per_second=25, quit_key=ESC_KEY, fullsc
     """main function"""
 
     # set as global for mouse callback function
-    global current_video_file, next_video_file, after_click
+    global current_video_file, next_video_file, after_click, current_screen
 
     # load main video first
     cap = cv2.VideoCapture(video_files[current_video_file])
@@ -78,21 +80,32 @@ def play_video(video_files: dict, frames_per_second=25, quit_key=ESC_KEY, fullsc
 
         # else, end of video
         else:
-            print("END OF VIDEO")
-            print("current:{} \nnext: {}".format(current_video_file, next_video_file))
+            # print("END OF VIDEO")
+            # print("current:{} \nnext: {}".format(current_video_file, next_video_file))
 
-            after_click = False
+            #after_click = False
 
             if current_video_file == next_video_file:  # play video in loop
                 cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
             else:  # play different video
+                after_click = False
+
                 current_video_file = next_video_file
+
+                # if current video is a transition - switch to static image at the end of video
+                # and change the screen value
+                if current_video_file in VIDEO_TO_STATIC_IMAGE:
+                    next_video_file = VIDEO_TO_STATIC_IMAGE[current_video_file]
+                    for screen_name in MOUSE_OVER_LOCATIONS:
+                        if "_"+screen_name in next_video_file:
+                            current_screen = screen_name
+                            print("NEW SCREEN: {}".format(current_screen))
+
                 cap = cv2.VideoCapture(video_files[current_video_file])
 
         # if quit key was pressed, exit video (default: ESC key)
         if cv2.waitKey(frames_per_second) & 0xFF == ord(quit_key):
             break
-
     cap.release()
     cv2.destroyAllWindows()
 
@@ -102,3 +115,4 @@ if __name__ == "__main__":
     time.sleep(0.3)
 
     play_video(ALL_VIDEOS, fullscreen=True)
+    print("\nProgram terminated")
