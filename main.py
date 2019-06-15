@@ -5,7 +5,6 @@ from config import ESC_KEY, ALL_VIDEOS, VIDEO_TO_STATIC_IMAGE, \
     CLICK_LOCATIONS, MOUSE_OVER_LOCATIONS, \
     current_video_file, next_video_file, after_click, current_screen
 
-
 def check_bounds(x, y, locations, frame_width, frame_height):
     # check if valid
     if (not (0 < x < frame_width)) or (not (0 < y < frame_height)):
