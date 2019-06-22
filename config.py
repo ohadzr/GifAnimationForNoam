@@ -12,6 +12,17 @@ MAIN_SCREEN_MO_PREG = r"media\main_screen_mouse_overs\Preg_MO.mp4"
 MAIN_SCREEN_MO_SEP = r"media\main_screen_mouse_overs\Sep_MO.mp4"
 MAIN_SCREEN_MO_SONG = r"media\main_screen_mouse_overs\Song_MO.mp4"
 
+BIRTH_MO_BALOONS = r"media\inner_screens_mouse_over\Birth_MO_Baloons.mp4"
+BIRTH_MO_EGG = r"media\inner_screens_mouse_over\Birth_MO_Egg.mp4"
+CARE_MO_BOTTLE = r"media\inner_screens_mouse_over\Care_MO_Bottle.mp4"
+CARE_MO_LEGS = r"media\inner_screens_mouse_over\Care_MO_Legs.mp4"
+INDEPENDENT_MO = r"media\inner_screens_mouse_over\Independent_MO.mp4"
+PREG_MO_EGG = r"media\inner_screens_mouse_over\Preg_MO_Egg.mp4"
+PREG_MO_SMOKE = r"media\inner_screens_mouse_over\Preg_MO_Smoke.mp4"
+SEP_MO_SHIP = r"media\inner_screens_mouse_over\Sep_MO_Ship.mp4"
+SEP_MO_TAIL = r"media\inner_screens_mouse_over\Sep_MO_Tail.mp4"
+SEP_MO_WINGS = r"media\inner_screens_mouse_over\Sep_MO_Wings.mp4"
+
 MAIN_SCREEN_TRANS_BIRTH = r"media\main_screen_transitions\Main_to_Birth.mp4"
 MAIN_SCREEN_TRANS_CARE = r"media\main_screen_transitions\Main_to_Care.mp4"
 MAIN_SCREEN_TRANS_INDEPENDENT = r"media\main_screen_transitions\Main_to_Independent.mp4"
@@ -65,8 +76,19 @@ ALL_VIDEOS = {
     'inner_static_care': INNER_SCREEN_STATIC_CARE,
     'inner_static_independent': INNER_SCREEN_STATIC_INDEPENDENT,
     'inner_static_preg': INNER_SCREEN_STATIC_PREG,
-    'inner_static_sep': INNER_SCREEN_STATIC_SEP
+    'inner_static_sep': INNER_SCREEN_STATIC_SEP,
     # 'inner_static_song': INNER_SCREEN_STATIC_SONG,
+
+    'Birth_MO_Baloons': BIRTH_MO_BALOONS,
+    'Birth_MO_Egg': BIRTH_MO_EGG,
+    'Care_MO_Bottle': CARE_MO_BOTTLE,
+    'Care_MO_Legs': CARE_MO_LEGS,
+    'Independent_MO': INDEPENDENT_MO,
+    'Preg_MO_Egg': PREG_MO_EGG,
+    'Preg_MO_Smoke': PREG_MO_SMOKE,
+    'Sep_MO_Ship': SEP_MO_SHIP,
+    'Sep_MO_Tail': SEP_MO_TAIL,
+    'Sep_MO_Wings': SEP_MO_WINGS
 
 }
 
@@ -81,11 +103,11 @@ CLICK_LOCATIONS = {
         'main_trans_sep': [(242, 1708), (1296, 2047)],
         'main_trans_song': [(973, 1090), (1384, 1395)]
     },
-    'care': { # TODO: should replace all below to care_trans_main
+    'care': {
         'care_trans_main': [(1816, 977), (1886, 1039)]
     },
     'birth': {
-        'birth_trans_main': [(1816, 977), (1886, 1039)]
+        'birth_trans_main': [(1816, 977), (1886, 1039),]
     },
     'independent': {
         'independent_trans_main': [(1816, 977), (1886, 1039)]
@@ -111,11 +133,26 @@ MOUSE_OVER_LOCATIONS = {
         'main_MO_song': [(973, 1090), (1384, 1395)]
     },
 
-    'care': {},
-    'birth': {},
-    'independent': {},
-    'preg': {},
-    'sep': {},
+    'care': {
+        'Care_MO_Bottle': [(1276, 22), (1916, 635)],
+        'Care_MO_Legs': [(145, 132), (546, 602)]
+    },
+    'birth': {
+        'Birth_MO_Baloons': [(100, 12), (842, 884)],
+        'Birth_MO_Egg': [(839, 1), (1832, 907)]
+    },
+    'independent': {
+        'Independent_MO': [(446, 76), (874, 557)]
+    },
+    'preg': {
+        'Preg_MO_Egg': [(67, 472), (988, 1078)],
+        'Preg_MO_Smoke': [(1275, 1), (1914, 722)]
+    },
+    'sep': {
+        'Sep_MO_Ship': [(101, 671), (556, 962)],
+        'Sep_MO_Tail': [(1414, 803), (1786, 1042)],
+        'Sep_MO_Wings': [(1152, 96), (1898, 736)]
+    },
     'song': {}
 
 }
