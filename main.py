@@ -29,7 +29,7 @@ def mouse_callback(event, x, y, flags, param):
     global next_video_file, after_click
     frame_width = param[0]
     frame_height = param[1]
-    # print("Mouse locations: {}, {}".format(x, y))
+    print("Mouse locations: {}, {}".format(x, y))
 
     if event == cv2.EVENT_LBUTTONDOWN:
         result = check_bounds(x, y, CLICK_LOCATIONS[current_screen], frame_width, frame_height)

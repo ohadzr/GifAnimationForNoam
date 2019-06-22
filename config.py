@@ -107,7 +107,7 @@ CLICK_LOCATIONS = {
         'care_trans_main': [(1816, 977), (1886, 1039)]
     },
     'birth': {
-        'birth_trans_main': [(1816, 977), (1886, 1039),]
+        'birth_trans_main': [(1816, 977), (1886, 1039)]
     },
     'independent': {
         'independent_trans_main': [(1816, 977), (1886, 1039)]
