@@ -16,15 +16,22 @@ MAIN_SCREEN_TRANS_BIRTH = r"media\main_screen_transitions\Main_to_Birth.mp4"
 MAIN_SCREEN_TRANS_CARE = r"media\main_screen_transitions\Main_to_Care.mp4"
 MAIN_SCREEN_TRANS_INDEPENDENT = r"media\main_screen_transitions\Main_to_Independent.mp4"
 MAIN_SCREEN_TRANS_PREG = r"media\main_screen_transitions\Main_to_Preg.mp4"
-MAIN_SCREEN_TRANS_SEP = r"media\main_screen_transitions\Main_Sep.mp4"
+MAIN_SCREEN_TRANS_SEP = r"media\main_screen_transitions\Main_to_Sep.mp4"
 MAIN_SCREEN_TRANS_SONG = r"media\main_screen_transitions\Song_MO.mp4"
 
+BIRTH_TRANS_MAIN_SCREEN = r"media\main_screen_transitions\Birth_to_Main.mp4"
+CARE_TRANS_MAIN_SCREEN = r"media\main_screen_transitions\Care_to_Main.mp4"
+INDEPENDENT_TRANS_MAIN_SCREEN = r"media\main_screen_transitions\Independent_to_Main.mp4"
+PREG_TRANS_MAIN_SCREEN = r"media\main_screen_transitions\Preg_to_Main.mp4"
+SEP_TRANS_MAIN_SCREEN = r"media\main_screen_transitions\Sep_to_Main.mp4"
+# SONG_TRANS_MAIN_SCREEN = r"media\main_screen_transitions\Song_MO.mp4"
+
 MAIN_SCREEN_STATIC = r"media\static_screens\Main_Screen.tif"
-INNER_SCREEN_STATIC_BIRTH = r"media\static_screens\Birth.tif"
-INNER_SCREEN_STATIC_CARE = r"media\static_screens\Care.tif"
-INNER_SCREEN_STATIC_INDEPENDENT = r"media\static_screens\Independent.tif"
-INNER_SCREEN_STATIC_PREG = r"media\static_screens\Preg.tif"
-INNER_SCREEN_STATIC_SEP = r"media\static_screens\Sep.tif"
+INNER_SCREEN_STATIC_BIRTH = r"media\static_screens\Birth.mp4"
+INNER_SCREEN_STATIC_CARE = r"media\static_screens\Care.mp4"
+INNER_SCREEN_STATIC_INDEPENDENT = r"media\static_screens\Independent.mp4"
+INNER_SCREEN_STATIC_PREG = r"media\static_screens\Preg.mp4"
+INNER_SCREEN_STATIC_SEP = r"media\static_screens\Sep.mp4"
 #INNER_SCREEN_SONG = r"media\static_screens\Song.tif"
 
 ALL_VIDEOS = {
@@ -46,13 +53,20 @@ ALL_VIDEOS = {
     'main_trans_sep': MAIN_SCREEN_TRANS_SEP,
     'main_trans_song': MAIN_SCREEN_TRANS_SONG,
 
-    'main_static': MAIN_SCREEN_STATIC,
+    'birth_trans_main': BIRTH_TRANS_MAIN_SCREEN,
+    'care_trans_main': CARE_TRANS_MAIN_SCREEN,
+    'independent_trans_main': INDEPENDENT_TRANS_MAIN_SCREEN,
+    'preg_trans_main': PREG_TRANS_MAIN_SCREEN,
+    'sep_trans_main': SEP_TRANS_MAIN_SCREEN,
+    # 'song_trans_main': SONG_TRANS_MAIN_SCREEN,
+
+    'static_main': MAIN_SCREEN_STATIC,
     'inner_static_birth': INNER_SCREEN_STATIC_BIRTH,
     'inner_static_care': INNER_SCREEN_STATIC_CARE,
     'inner_static_independent': INNER_SCREEN_STATIC_INDEPENDENT,
     'inner_static_preg': INNER_SCREEN_STATIC_PREG,
     'inner_static_sep': INNER_SCREEN_STATIC_SEP
-    #'inner_static_song': INNER_SCREEN_STATIC_SONG,
+    # 'inner_static_song': INNER_SCREEN_STATIC_SONG,
 
 }
 
@@ -68,22 +82,22 @@ CLICK_LOCATIONS = {
         'main_trans_song': [(973, 1090), (1384, 1395)]
     },
     'care': { # TODO: should replace all below to care_trans_main
-        'main_trans_care': [(3594, 1929), (3767, 2084)]
+        'care_trans_main': [(1816, 977), (1886, 1039)]
     },
     'birth': {
-        'main_trans_birth': [(3594, 1929), (3767, 2084)]
+        'birth_trans_main': [(1816, 977), (1886, 1039)]
     },
     'independent': {
-        'main_trans_independent': [(3594, 1929), (3767, 2084)]
+        'independent_trans_main': [(1816, 977), (1886, 1039)]
     },
     'preg': {
-        'main_trans_preg': [(3594, 1929), (3767, 2084)]
+        'preg_trans_main': [(1816, 977), (1886, 1039)]
     },
     'sep': {
-        'main_trans_sep': [(3594, 1929), (3767, 2084)]
+        'sep_trans_main': [(1816, 977), (1886, 1039)]
     },
     'song': {
-        'main_trans_song': [(3594, 1929), (3767, 2084)]
+        'song_trans_main': [(1816, 977), (1886, 1039)]
     }
 }
 
@@ -114,15 +128,15 @@ VIDEO_TO_STATIC_IMAGE = {
     'main_trans_sep': 'inner_static_sep',
     'main_trans_song': 'inner_static_song',
 
-    'birth_trans_main': 'main_static',
-    'care_trans_main': 'main_static',
-    'independent_trans_main': 'main_static',
-    'preg_trans_main': 'main_static',
-    'sep_trans_main': 'main_static',
-    'song_trans_main': 'main_static'
+    'birth_trans_main': 'static_main',
+    'care_trans_main': 'static_main',
+    'independent_trans_main': 'static_main',
+    'preg_trans_main': 'static_main',
+    'sep_trans_main': 'static_main',
+    'song_trans_main': 'static_main'
 }
 
-current_video_file = 'main_static'
-next_video_file = 'main_static'
+current_video_file = 'static_main'
+next_video_file = 'static_main'
 current_screen = 'main'
 after_click = False

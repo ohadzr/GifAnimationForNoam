@@ -5,6 +5,7 @@ from config import ESC_KEY, ALL_VIDEOS, VIDEO_TO_STATIC_IMAGE, \
     CLICK_LOCATIONS, MOUSE_OVER_LOCATIONS, \
     current_video_file, next_video_file, after_click, current_screen
 
+
 def check_bounds(x, y, locations, frame_width, frame_height):
     # check if valid
     if (not (0 < x < frame_width)) or (not (0 < y < frame_height)):
@@ -28,7 +29,7 @@ def mouse_callback(event, x, y, flags, param):
     global next_video_file, after_click
     frame_width = param[0]
     frame_height = param[1]
-    print("Mouse locations: {}, {}".format(x, y))
+    # print("Mouse locations: {}, {}".format(x, y))
 
     if event == cv2.EVENT_LBUTTONDOWN:
         result = check_bounds(x, y, CLICK_LOCATIONS[current_screen], frame_width, frame_height)
@@ -77,30 +78,45 @@ def play_video(video_files: dict, frames_per_second=25, quit_key=ESC_KEY, fullsc
         if ret:
             cv2.imshow('window', frame)
 
+            # change video if different animation is marked by cursor
+            if current_video_file != next_video_file:
+                current_video_file = next_video_file
+                cap = cv2.VideoCapture(video_files[current_video_file])
+
         # else, end of video
         else:
             # print("END OF VIDEO")
             # print("current:{} \nnext: {}".format(current_video_file, next_video_file))
-
-            #after_click = False
+            after_click = False
 
             if current_video_file == next_video_file:  # play video in loop
                 cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+
+                if current_video_file in VIDEO_TO_STATIC_IMAGE:
+                    next_video_file = VIDEO_TO_STATIC_IMAGE[current_video_file]
+                    for screen_name in MOUSE_OVER_LOCATIONS:
+                        if "_" + screen_name in next_video_file:
+                            current_screen = screen_name
+
+                            print("NEW SCREEN: {}".format(current_screen))
+
+                cap = cv2.VideoCapture(video_files[current_video_file])
+
             else:  # play different video
-                after_click = False
+
 
                 current_video_file = next_video_file
 
                 # if current video is a transition - switch to static image at the end of video
                 # and change the screen value
-                if current_video_file in VIDEO_TO_STATIC_IMAGE:
-                    next_video_file = VIDEO_TO_STATIC_IMAGE[current_video_file]
-                    for screen_name in MOUSE_OVER_LOCATIONS:
-                        if "_"+screen_name in next_video_file:
-                            current_screen = screen_name
-                            print("NEW SCREEN: {}".format(current_screen))
+                # if current_video_file in VIDEO_TO_STATIC_IMAGE:
+                #     next_video_file = VIDEO_TO_STATIC_IMAGE[current_video_file]
+                #     for screen_name in MOUSE_OVER_LOCATIONS:
+                #         if "_" + screen_name in next_video_file:
+                #             current_screen = screen_name
+                #             print("NEW SCREEN: {}".format(current_screen))
 
-                cap = cv2.VideoCapture(video_files[current_video_file])
+                # cap = cv2.VideoCapture(video_files[current_video_file])
 
         # if quit key was pressed, exit video (default: ESC key)
         if cv2.waitKey(frames_per_second) & 0xFF == ord(quit_key):
