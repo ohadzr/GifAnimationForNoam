@@ -99,7 +99,7 @@ def play_video(video_files: dict, frames_per_second=25, quit_key=ESC_KEY, fullsc
                             current_screen = screen_name
                             current_video_file = next_video_file
 
-                            print("NEW SCREEN: {}".format(current_screen))
+                            print("NEW SCREEN: {}\nnext video:{}".format(current_screen, next_video_file))
 
                 cap = cv2.VideoCapture(video_files[current_video_file])
 
